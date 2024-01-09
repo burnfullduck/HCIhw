@@ -42,17 +42,23 @@
                 <div v-show="inputType === 'fileFolder'">
                     <FolderSentiAPI></FolderSentiAPI>
                 </div>
-                <el-button type="info" @click="pageType = 'premium';" href="javascript:void(0);">高级设置</el-button>
+                <br>
+                <br>
+                <br>
+                <button style="margin-right: 10%;" type="button" class="btn btn-primary pull-right"
+                    @click="pageType = 'premium';" href="javascript:void(0);">高级设置</button>
             </div>
 
-            
+
 
 
             <!-- 2.选项设置 -->
             <div v-show="pageType === 'premium'" class="jumbotron p-3 p-md-5 text-black rounded back-white">
-                <el-button type="info" @click="pageType = 'basic';" href="javascript:void(0);">返回分析页面</el-button>
+
+                <button type="button" @click="pageType = 'basic';" href="javascript:void(0);"
+                    class="btn btn-primary">返回分析页面</button>
                 <p></p>
-                <h3 class="md-3">2.选项设置</h3>
+                <h3 class="md-3">选项设置</h3>
 
                 <div class="input-group mb-3">
                     <div class="input-group-text">
@@ -91,6 +97,8 @@
 
                 <label for="classifyMethod">分类方法</label>
                 <select class="custom-select d-block w-100" id="classifyMethod" v-model="classifyMethod">
+                    <option value="scale">Scale &ensp;&ensp; 在默认分类结果基础上计算出更加细化的整体情绪倾向(-4~4)
+                    </option>
                     <option value="">Dual &ensp;&ensp; 默认分类结果为:积极情绪(1~5) 消极情绪(-1~-5)</option>
                     <option value="binary">Binary &ensp;&ensp; 在默认分类结果基础上计算出整体情绪倾向(-1为消极,
                         1为积极)
@@ -98,16 +106,16 @@
                     <option value="trinary">Trinary &ensp;&ensp; 在默认分类结果基础上计算出整体情绪倾向(-1为消极, 1为积极,
                         0为中性)
                     </option>
-                    <option value="scale">Scale &ensp;&ensp; 在默认分类结果基础上计算出更加细化的整体情绪倾向(-4~4)
-                    </option>
+
                 </select>
 
             </div>
+            <br>
 
             <!-- 3.分类算法参数设置 -->
             <div v-show="pageType === 'premium'" class="jumbotron p-3 p-md-5 text-white rounded back-dark"
                 style="height:auto; overflow-x: hidden; ">
-                <h3 class="md-3">3.分类算法参数设置</h3>
+                <h3 class="md-3">分类算法参数设置</h3>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="noBoosters" id="noBoosters" v-model="noBoosters">
                     <label class="form-check-label" for="noBoosters">
@@ -261,13 +269,6 @@
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="noMultipleNegWords" id="noMultipleNegWords"
-                        v-model="noMultipleNegWords">
-                    <label class="form-check-label" for="noMultipleNegWords">
-                        不要删除单词中多余的重复字母
-                    </label>
-                </div>
-                <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="illegalDoubleLettersInWordMiddle"
                         id="illegalDoubleLettersInWordMiddle" v-model="setIllegalDoubleLettersInWordMiddle"
                         @change="showIllegalDoubleLettersInWordMiddle = !showIllegalDoubleLettersInWordMiddle">
@@ -388,10 +389,10 @@
                         placeholder="ISO-639 lower-case two-letter langauge code" v-if=showLang>
                 </div>
             </div>
-
+            <br>
             <!-- 4.输入输出设置 -->
             <div v-show="pageType === 'premium'" class="jumbotron p-3 p-md-5 text-black rounded back-white">
-                <h3 class="md-3">4.输入输出设置</h3>
+                <h3 class="md-3">输入输出设置</h3>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="explain" id="explain" v-model="explain">
                     <label class="form-check-label" for="explain">
@@ -501,7 +502,7 @@ export default {
             wordsBeforeKeywords: '',
             setWordsAfterKeywords: [],
             wordsAfterKeywords: '',
-            classifyMethod: '',
+            classifyMethod: 'scale',
             noBoosters: [],
             noNegators: [],
             noNegatingPositiveFlipsEmotion: [],

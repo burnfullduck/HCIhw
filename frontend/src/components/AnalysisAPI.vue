@@ -5,83 +5,82 @@
             <header class="blog-header py-3">
                 <div class="row flex-nowrap justify-content-between align-items-center">
                     <!--<div class="col-4 d-flex justify-content-end align-items-center" />-->
+                    <a class="col-1 button" href="/"
+                        style="color: #FFFFFF; text-decoration: none; font-size: 1.1em; float: left;">
+                        <p style="margin : 0 0 0 0.4em;">返回首页</p>
+                    </a>
                     <div class="text-center" style="margin: 0 auto">
                         <h1 class="cool-text neon" style="margin: 1em 0 1em 0">SentiStrength Analysis Tool</h1>
                     </div>
-
-                    <a class="col-1 button" href="/" style="color: #ffffff; text-decoration: none; font-size: 1.1em; float: right;">
-                        <p style="margin: 0 0 0 0.3em;">返回首页</p>
-                    </a>
                 </div>
             </header>
 
-            <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="api jumbotron p-3 p-md-5 text-black rounded" style="background-color: rgba(255, 255, 255, 60%); ">
+            <el-tabs v-model="activeName" type="card" @tab-click="handleClick"
+                class="api jumbotron p-3 p-md-5 text-black rounded" style="background-color: rgba(255, 255, 255, 60%); ">
                 <el-tab-pane label="查看总表" name="first">
                     <div class="api jumbotron p-3 p-md-5 text-black rounded back-white">
                         <h3 class="md-3" style="color: #000;display:block;margin:0 auto">1.扇形图显示各情绪值占比</h3>
-                        <br/>
+                        <br />
                         <AngleDiagram></AngleDiagram>
                     </div>
+                    <br />
 
-                    <div class="jumbotron p-3 p-md-5 text-black rounded back-dark">
-                        <h3 class="md-3" style="color: #fff;display:block;margin:0 auto">2.按时间粒度查看总数据</h3>
-                        <br/>
+                    <div class="jumbotron p-3 p-md-5 text-black rounded back-white">
+                        <h3 class="md-3" style="color: #000;display:block;margin:0 auto">2.按时间粒度查看总数据</h3>
+                        <br />
                         <GranularityList v-if="totalSignal2" :commentData="totalData2"></GranularityList>
                     </div>
+                    <br />
 
                     <div class="api jumbotron p-3 p-md-5 text-black rounded back-white">
                         <h3 class="md-3" style="color: #000;display:block;margin:0 auto">3.总数据(按提交顺序，每页50条)</h3>
-                        <br/>
+                        <br />
                         <CommonList v-if="totalSignal1" :commentData="totalData1"></CommonList>
                     </div>
                 </el-tab-pane>
 
                 <el-tab-pane label="按评审人查看" name="second">
                     <div class="jumbotron p-3 p-md-5 text-black rounded back-white" style="display:block;margin:0 auto">
-                        <h3 class="md-3" style="color: #000">1.请输入需要查看的评审者姓名，返回no data说明不存在</h3>
+                        <h3 class="md-3" style="color: #000">1.请输入需要查看的评审者姓名</h3>
                         <input v-model="subName" placeholder="输入需要查看的评审者姓名" style="width: 40%">
                         <button @click="subNameChange">查找</button>
                         <div style="color: whitesmoke">{{ responseText }}</div>
-                        <br/>
+                        <br />
                     </div>
+                    <br />
 
-                    <div class="api jumbotron p-3 p-md-5 text-black rounded back-dark">
-                        <h3 class="md-3" style="color: #fff;display:block;margin:0 auto">2.该评审者的所有评论</h3>
-                        <br/>
+                    <div class="api jumbotron p-3 p-md-5 text-black rounded back-white">
+                        <h3 class="md-3" style="color: #000;display:block;margin:0 auto">2.该评审者的所有评论</h3>
+                        <br />
                         <CommonList v-if="nameSignal1" :commentData="nameData1"></CommonList>
                     </div>
+                    <br />
 
                     <div class="jumbotron p-3 p-md-5 text-black rounded back-white">
                         <h3 class="md-3" style="color: #000;display:block;margin:0 auto">3.按时间粒度查看</h3>
-                        <br/>
+                        <br />
                         <GranularityList v-if="nameSignal2" :commentData="nameData2"></GranularityList>
-                        <br/>
+                        <br />
                         <barChartForReviewer ref="barChart"></barChartForReviewer>
                     </div>
 
                 </el-tab-pane>
 
                 <el-tab-pane label="按日期查看" name="third">
-                    <div class="jumbotron p-3 p-md-5 text-black rounded back-dark">
+                    <div class="jumbotron p-3 p-md-5 text-black rounded back-white">
                         <div class="demo-date-picker">
                             <div class="block">
-                                <h3 class="md-3" style="color: #fff">1.选择时间段（2022-5-1到2023-5-31）并查看，默认为全时间</h3>
-                                <br/>
-                                <el-date-picker
-                                        v-model="dateRange"
-                                        type="daterange"
-                                        range-separator="To"
-                                        start-placeholder="Start date"
-                                        end-placeholder="End date"
-                                        :size="size"
-                                        @change="CalenderChange"
-                                        :disabled-date="disabledDate"
-                                />
+                                <h3 class="md-3" style="color: #000">1.选择时间段（2022-5-1到2023-5-31）并查看，默认为全时间</h3>
+                                <br />
+                                <el-date-picker v-model="dateRange" type="daterange" range-separator="To"
+                                    start-placeholder="Start date" end-placeholder="End date" :size="size"
+                                    @change="CalenderChange" :disabled-date="disabledDate" />
                             </div>
                         </div>
-                        <br/>
+                        <br />
                         <CommonList v-if="timeSignal" :commentData="timeData"></CommonList>
                     </div>
+                    <br />
                     <div class="api jumbotron p-3 p-md-5 text-black rounded back-white">
                         <lineChartForDate></lineChartForDate>
                     </div>
@@ -90,14 +89,15 @@
                 <el-tab-pane label="查看Aspect数据" name="fourth">
                     <div class="jumbotron p-3 p-md-5 text-black rounded back-white">
                         <h3 class="md-3" style="color: #000;display:block;margin:0 auto">情绪方面分布</h3>
-                        <br/>
+                        <br />
                         <AspectAnalysis></AspectAnalysis>
                     </div>
                 </el-tab-pane>
             </el-tabs>
         </div>
     </div>
-    <i style="color: #FFFFFF;font-size: 16px;left: 50%;position: absolute;transform: translateX(-50%); padding: 5em 0 8em 0">Copyright
+    <i
+        style="color: #FFFFFF;font-size: 16px;left: 50%;position: absolute;transform: translateX(-50%); padding: 5em 0 8em 0">Copyright
         &#169; 2023 | RainbowSix NJUSE | Base on Nginx and Vue3</i>
 </template>
 
@@ -180,7 +180,7 @@ import axios from "axios";
 
 export default {
     name: 'AnalysisAPI',
-    components: {CommonList, GranularityList, AngleDiagram, AspectAnalysis, lineChartForDate, barChartForReviewer},
+    components: { CommonList, GranularityList, AngleDiagram, AspectAnalysis, lineChartForDate, barChartForReviewer },
     data() {
         return {
             activeName: 'first',
@@ -210,7 +210,7 @@ export default {
             fd.append("startDate", this.newDate(this.dateRange[0].toString()));
             fd.append("endDate", this.newDate(this.dateRange[1].toString()))
             axios.post('http://124.221.102.208:8082/analysis/getAllDataByDate', fd, {
-                headers: {'Content-Type': 'multipart/form-data'},//定义内容格式,很重要
+                headers: { 'Content-Type': 'multipart/form-data' },//定义内容格式,很重要
                 timeout: 20000,
             }).then(response => {
                 this.timeData = response.data;
@@ -226,7 +226,7 @@ export default {
             fd.append("name", this.subName);
 
             axios.post('http://124.221.102.208:8082/analysis/getAllDataByName', fd, {
-                headers: {'Content-Type': 'multipart/form-data'},//定义内容格式,很重要
+                headers: { 'Content-Type': 'multipart/form-data' },//定义内容格式,很重要
                 timeout: 20000,
             }).then(response => {
                 this.nameData1 = response.data;
@@ -236,7 +236,7 @@ export default {
             })
 
             axios.post('http://124.221.102.208:8082/analysis/dataEachMonthByName', fd, {
-                headers: {'Content-Type': 'multipart/form-data'},//定义内容格式,很重要
+                headers: { 'Content-Type': 'multipart/form-data' },//定义内容格式,很重要
                 timeout: 20000,
             }).then(response => {
                 this.nameData2 = response.data;
